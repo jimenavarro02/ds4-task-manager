@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   backend:
@@ -37,35 +37,4 @@ jobs:
           name: reporte-cobertura
           path: backend/target/site/jacoco/
 
-  # ------------------------------------------------------------------
-  # FRONTEND: desactivado hasta que la Persona 2 suba la carpeta frontend/.
-  # Cuando exista frontend/package.json, quiten el "# " de estas lineas.
-  # ------------------------------------------------------------------
-  # frontend:
-  #   name: Frontend (Angular)
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: frontend
-  #   steps:
-  #     - name: Descargar código
-  #       uses: actions/checkout@v4
-
-  #     - name: Instalar Node 22
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "22"
-  #         cache: npm
-  #         cache-dependency-path: frontend/package-lock.json
-
-  #     - name: Instalar dependencias
-  #       run: npm ci
-
-  #     - name: Correr pruebas
-  #       run: npx ng test --watch=false
-  #       # Si su proyecto usa Karma (karma.conf / @angular-devkit/build-angular:karma),
-  #       # cambien la línea anterior por:
-  #       # run: npx ng test --watch=false --browsers=ChromeHeadless
-
-  #     - name: Compilar
-  #       run: npx ng build
+  
