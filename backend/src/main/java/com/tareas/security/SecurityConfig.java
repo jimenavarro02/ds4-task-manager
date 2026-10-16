@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .requestMatchers(antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                 .requestMatchers(antMatcher("/h2-console/**"), antMatcher("/actuator/health/**")).permitAll()
                 .anyRequest().authenticated())
-            // 401 limpio, sin el popup de login del navegador
             .httpBasic(basic -> basic.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
 
         return http.build();
