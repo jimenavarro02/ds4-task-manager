@@ -1,28 +1,71 @@
-name: CI/CD Pipeline - TaskFlow
+name: CI
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  backend:
+    name: Backend (Spring Boot)
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: backend
     steps:
-    # 1. Descargar el código fuente del repositorio
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Descargar código
+        uses: actions/checkout@v4
 
-    # 2. Configurar el entorno de Java (JDK 17)
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: 'maven'
+      - name: Instalar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
 
-    # 3. Compilar y ejecutar pruebas automatizadas con Maven
-    - name: Run Build and Tests with Maven
-      run: mvn clean test
+      - name: Dar permisos al Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Compilar y correr pruebas JUnit
+        run: ./mvnw -B verify
+
+      - name: Subir reporte de cobertura (JaCoCo)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-cobertura
+          path: backend/target/site/jacoco/
+
+  # ------------------------------------------------------------------
+  # FRONTEND: desactivado hasta que la Persona 2 suba la carpeta frontend/.
+  # Cuando exista frontend/package.json, quiten el "# " de estas lineas.
+  # ------------------------------------------------------------------
+  # frontend:
+  #   name: Frontend (Angular)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: frontend
+  #   steps:
+  #     - name: Descargar código
+  #       uses: actions/checkout@v4
+
+  #     - name: Instalar Node 22
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "22"
+  #         cache: npm
+  #         cache-dependency-path: frontend/package-lock.json
+
+  #     - name: Instalar dependencias
+  #       run: npm ci
+
+  #     - name: Correr pruebas
+  #       run: npx ng test --watch=false
+  #       # Si su proyecto usa Karma (karma.conf / @angular-devkit/build-angular:karma),
+  #       # cambien la línea anterior por:
+  #       # run: npx ng test --watch=false --browsers=ChromeHeadless
+
+  #     - name: Compilar
+  #       run: npx ng build
