@@ -1,1 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --bg: #f4f7f5;
+  --surface: #ffffff;
+  --ink: #10231f;
+  --muted: #5f7470;
+  --border: #dfe8e4;
+  --forest: #0d2b27;
+  --primary: #0f766e;   
+  --primary-dark: #115e59;
+  --mint: #6ee7b7;     
+  --mint-soft: #e6f7ef;
+  --danger: #b4452f;
+  --radius: 12px;
+  --font-display: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: 1.25rem; margin-bottom: 1.1rem; }
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+input, select, textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  padding: 0.65rem 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(110 231 183 / 40%);
+}
+textarea { resize: vertical; }
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.secundario { color: var(--ink); background: var(--surface); border-color: var(--border); }
+.btn.secundario:hover { background: var(--mint-soft); border-color: var(--mint); }
+.btn.peligro { color: var(--danger); background: var(--surface); border-color: var(--border); }
+.btn.peligro:hover { background: #fbeee9; border-color: #e8b9ab; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgb(13 43 39 / 4%), 0 8px 24px rgb(13 43 39 / 5%);
+}
+.error {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.875rem;
+  color: var(--danger);
+  background: #fbeee9;
+  border-left: 3px solid var(--danger);
+  border-radius: 6px;
+}

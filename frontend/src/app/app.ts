@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   imports: [RouterOutlet],
@@ -8,5 +9,11 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('frontend');
+  protected readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+
+  protected salir(): void {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 }
