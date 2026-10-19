@@ -1,0 +1,48 @@
+name: CI-CD y Pruebas E2E Selenium
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-y-pruebas:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17 (si compilas el backend externamente o dependes de él)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Construir la imagen Docker de la aplicación
+        run: |
+          docker build -t ds4-task-manager:latest .
+
+      - name: Levantar el contenedor en segundo plano (Puerto 8080)
+        run: |
+          docker run -d --name task-manager-test -p 8080:8080 ds4-task-manager:latest
+          # Dar unos segundos para que Spring Boot inicie por completo
+          sleep 15
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias de Selenium
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r e2e/requirements.txt
+
+      - name: Ejecutar pruebas E2E con Selenium (Headless)
+        run: |
+          python -m unittest discover -s e2e -p "test_*.py" -v
+
+      - name: Limpiar contenedor en caso de fallo o éxito
+        if: always()
+        run: |
+          docker rm -f task-manager-test || true
