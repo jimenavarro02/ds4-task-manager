@@ -1,0 +1,24 @@
+<form class="card login" (ngSubmit)="entrar()" id="form-login">
+  <aside class="marca">
+    <p class="marca-titulo">Task Manager</p>
+    <p class="marca-texto">Organiza el trabajo de tu equipo, una tarea a la vez.</p>
+  </aside>
+
+  <div class="campos">
+    <h2>Iniciar sesión</h2>
+
+    @if (error()) {
+      <p class="error" id="login-error" role="alert">{{ error() }}</p>
+    }
+
+    <label for="usuario">Usuario</label>
+    <input id="usuario" name="usuario" [(ngModel)]="usuario" autocomplete="username" />
+
+    <label for="password">Contraseña</label>
+    <input id="password" name="password" type="password" [(ngModel)]="password" autocomplete="current-password" />
+
+    <button id="btn-login" class="btn" type="submit" [disabled]="cargando()">
+      {{ cargando() ? 'Entrando...' : 'Entrar' }}
+    </button>
+  </div>
+</form>
