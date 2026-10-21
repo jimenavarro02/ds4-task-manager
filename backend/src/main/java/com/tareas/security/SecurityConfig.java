@@ -40,7 +40,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                 .requestMatchers(antMatcher("/h2-console/**"), antMatcher("/actuator/health/**")).permitAll()
-                .anyRequest().authenticated())
+                .requestMatchers(antMatcher("/api/**")).authenticated()
+                .anyRequest().permitAll())
             .httpBasic(basic -> basic.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
 
         return http.build();
