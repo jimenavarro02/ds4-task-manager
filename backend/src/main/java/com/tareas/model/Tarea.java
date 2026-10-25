@@ -12,9 +12,10 @@ public class Tarea {
 
     private String titulo;
     private String descripcion;
-    private String estado; // Pendiente, En progreso, Completada
+    private String estado;
 
-    public Tarea() {}
+    public Tarea() {
+    }
 
     public Tarea(String titulo, String descripcion, String estado) {
         this.titulo = titulo;
@@ -22,16 +23,35 @@ public class Tarea {
         this.estado = estado;
     }
 
-    // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getTitulo() {
+        return titulo;
+    }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
