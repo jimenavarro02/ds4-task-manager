@@ -65,8 +65,8 @@ public class TareaControllerTest {
         when(tareaService.guardar(any(Tarea.class))).thenReturn(nueva);
 
         mockMvc.perform(post("/api/tareas")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(nueva)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(nueva)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.titulo").value("Nueva"))
                 .andExpect(jsonPath("$.estado").value("Pendiente"));
@@ -80,8 +80,8 @@ public class TareaControllerTest {
         when(tareaService.guardar(any(Tarea.class))).thenReturn(existente);
 
         mockMvc.perform(put("/api/tareas/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(cambios)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(cambios)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.titulo").value("Actualizada"));
 
@@ -95,8 +95,8 @@ public class TareaControllerTest {
         when(tareaService.buscarPorId(99L)).thenReturn(Optional.empty());
 
         mockMvc.perform(put("/api/tareas/99")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(new Tarea("X", "Y", "Pendiente"))))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new Tarea("X", "Y", "Pendiente"))))
                 .andExpect(status().isNotFound());
 
         verify(tareaService, never()).guardar(any(Tarea.class));

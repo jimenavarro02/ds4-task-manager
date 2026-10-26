@@ -32,6 +32,7 @@ public class SeguridadIntegrationTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Test
     void sinCredencialesDevuelve401SinPopupDelNavegador() throws Exception {
         mockMvc.perform(get("/api/tareas"))
