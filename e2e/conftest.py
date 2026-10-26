@@ -15,7 +15,7 @@ SCREENSHOTS = pathlib.Path(__file__).parent / "screenshots"
 @pytest.fixture
 def driver(request):
     opts = Options()
-    if os.getenv("HEADLESS", "1") == "1":
+    if os.getenv("HEADLESS", "0") == "1":
         opts.add_argument("--headless=new")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
